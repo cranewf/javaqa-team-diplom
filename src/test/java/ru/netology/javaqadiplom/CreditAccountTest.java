@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 
 public class CreditAccountTest {
 
-    @Test
+    @Test // выкидываем исключение при отрицательном Rate
     public void giveMeNegativeRate() {
 
         Assertions.assertThrows(IllegalArgumentException.class, () -> new CreditAccount(
@@ -15,7 +15,7 @@ public class CreditAccountTest {
         ));
     }
 
-    @Test
+    @Test // выкидываем исключение при отрицательном InitialBalance
     public void giveMeNegativeInitialBalance() {
 
         Assertions.assertThrows(IllegalArgumentException.class, () -> new CreditAccount(
@@ -25,7 +25,7 @@ public class CreditAccountTest {
         ));
     }
 
-    @Test
+    @Test // выкидываем исключение при отрицательном CreditLimit
     public void giveMeNegativeCreditLimit() {
 
         Assertions.assertThrows(IllegalArgumentException.class, () -> new CreditAccount(
@@ -35,7 +35,7 @@ public class CreditAccountTest {
         ));
     }
 
-    @Test
+    @Test // Отказ при оплате со значением 0
     public void shouldPayToEqualToZeroBalance() {
         CreditAccount account = new CreditAccount(
                 5_000,
@@ -49,7 +49,7 @@ public class CreditAccountTest {
         Assertions.assertFalse(account.pay(0));
     }
 
-    @Test
+    @Test // Отказ оплаты при отрицательном значении
     public void shouldPayToNegativeBalance() {
         CreditAccount account = new CreditAccount(
                 5_000,
@@ -63,7 +63,7 @@ public class CreditAccountTest {
         Assertions.assertFalse(account.pay(-1));
     }
 
-    @Test
+    @Test // Оплата со значением больше нуля, но В пределах лимита
     public void shouldPayToPositiveBalance() {
         CreditAccount account = new CreditAccount(
                 5_000,
@@ -77,7 +77,7 @@ public class CreditAccountTest {
         Assertions.assertTrue(account.pay(10_000));
     }
 
-    @Test
+    @Test // Оплата со значением больше нуля, но ЗА пределами лимита
     public void shouldPayToOverCreditLimit() {
         CreditAccount account = new CreditAccount(
                 5_000,
@@ -91,7 +91,7 @@ public class CreditAccountTest {
         Assertions.assertFalse(account.pay(30_000));
     }
 
-    @Test
+    @Test // Пополнение на значение "ноль". Баланс не меняется
     public void shouldAddToEqualToZeroBalance() {
         CreditAccount account = new CreditAccount(
                 5_000,
@@ -105,7 +105,7 @@ public class CreditAccountTest {
         Assertions.assertFalse(account.add(0));
     }
 
-    @Test
+    @Test // Пополнение на значение "минус 1". Баланс не меняется
     public void shouldAddToNegativeBalance() {
         CreditAccount account = new CreditAccount(
                 5_000,
@@ -119,7 +119,7 @@ public class CreditAccountTest {
         Assertions.assertFalse(account.add(-1));
     }
 
-    @Test
+    @Test // Пополнение при балансе "ноль". Значение больше нуля
     public void shouldAddToPositiveBalance() {
         CreditAccount account = new CreditAccount(
                 0,
@@ -133,7 +133,7 @@ public class CreditAccountTest {
         Assertions.assertTrue(account.add(3_000));
     }
 
-    @Test
+    @Test // Пополнение при отрицательном балансе. Значение больше нуля
     public void shouldAddToPositiveBalanceSecond() {
         CreditAccount account = new CreditAccount(
                 -5_000,
@@ -147,7 +147,7 @@ public class CreditAccountTest {
         Assertions.assertTrue(account.add(10_000));
     }
 
-    @Test
+    @Test // Пополнение при положительном балансе. Значение больше нуля
     public void shouldAddToPositiveBalanceEqualToTheLimit() {
         CreditAccount account = new CreditAccount(
                 5_000,
@@ -161,7 +161,7 @@ public class CreditAccountTest {
         Assertions.assertTrue(account.add(5_000));
     }
 
-    @Test
+    @Test // Начисление процентов при балансе "ноль". Проценты не начисляются
     public void interestAccrualOnBalanceEqualToZero() {
         CreditAccount account = new CreditAccount(
                 0,
@@ -175,7 +175,7 @@ public class CreditAccountTest {
         Assertions.assertEquals(expected, actual);
     }
 
-    @Test
+    @Test // Начисление процентов при балансе меньше нуля. Проценты начисляются
     public void interestAccrualWhenBalanceIsLessThanZero() {
         CreditAccount account = new CreditAccount(
                 -1_000,
@@ -189,7 +189,7 @@ public class CreditAccountTest {
         Assertions.assertEquals(expected, actual);
     }
 
-    @Test
+    @Test // Начисление процентов при балансе больше "нуля", проценты не начисляются
     public void interestAccrualWhenBalanceIsGreaterThanZero() {
         CreditAccount account = new CreditAccount(
                 1_000,
