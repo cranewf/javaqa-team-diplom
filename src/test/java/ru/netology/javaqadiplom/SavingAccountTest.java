@@ -144,4 +144,46 @@ public class SavingAccountTest {
         });
     }
 
+    @Test
+    public void testAddNegativeAmount() {
+        SavingAccount account = new SavingAccount(
+                2_000,
+                1_000,
+                10_000,
+                5
+        );
+
+        account.add(-100);
+
+        Assertions.assertEquals(2_000, account.getBalance());
+    }
+
+    @Test
+    public void testPayNegativeAmount() {
+        SavingAccount account = new SavingAccount(
+                2_000,
+                1_000,
+                10_000,
+                5
+        );
+
+        account.pay(-100);
+
+        Assertions.assertEquals(2_000, account.getBalance());
+    }
+
+    @Test
+    public void testCalculateBalance() {
+        SavingAccount account = new SavingAccount(
+                2_000,
+                1_000,
+                10_000,
+                5
+        );
+
+        int expected = account.getMaxBalance() - account.getMinBalance();
+        int actual = 9_000;
+
+        Assertions.assertEquals(expected, actual);
+    }
 }
