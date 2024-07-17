@@ -178,13 +178,13 @@ public class CreditAccountTest {
     @Test // Начисление процентов при балансе меньше нуля. Проценты начисляются
     public void interestAccrualWhenBalanceIsLessThanZero() {
         CreditAccount account = new CreditAccount(
-                -1_000,
+                -200,
                 20_000,
                 15
         );
 
         int actual = account.yearChange();
-        int expected = 150;
+        int expected = -30;
 
         Assertions.assertEquals(expected, actual);
     }
@@ -192,7 +192,7 @@ public class CreditAccountTest {
     @Test // Начисление процентов при балансе больше "нуля", проценты не начисляются
     public void interestAccrualWhenBalanceIsGreaterThanZero() {
         CreditAccount account = new CreditAccount(
-                1_000,
+                200,
                 20_000,
                 15
         );
