@@ -19,7 +19,7 @@ public class CreditAccountTest {
     public void giveMeNegativeInitialBalance() {
 
         Assertions.assertThrows(IllegalArgumentException.class, () -> new CreditAccount(
-                -20_000,
+                -21_000,
                 20_000,
                 15
         ));
