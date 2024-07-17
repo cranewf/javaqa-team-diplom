@@ -26,7 +26,7 @@ public class CreditAccount extends Account {
             this.rate = rate;
         }
 
-        if (initialBalance + creditLimit <= 0) {
+        if (initialBalance + creditLimit < 0) {
             throw new IllegalArgumentException(
                     "Начальный баланс не может быть отрицательным, а у вас: " + initialBalance
             );
